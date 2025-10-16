@@ -1,0 +1,59 @@
+/* Mantoo — Page module (nude theme) */
+
+.page {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--mantoo-bg);
+}
+
+.main {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* CTAs opcionales (si no usas .btn de Bootstrap) */
+.ctas {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.ctaPrimary, .ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: var(--bs-border-radius-xl);
+  border: 1px solid transparent;
+  font-weight: 600;
+  transition: background .2s, color .2s, border-color .2s, transform .02s;
+  cursor: pointer;
+}
+.ctaPrimary {
+  background: var(--mantoo-accent);
+  color: #fff;
+}
+.ctaPrimary:hover { background: var(--mantoo-accent-600); }
+.ctaPrimary:active { background: var(--mantoo-accent-700); transform: translateY(1px); }
+
+.ctaSecondary {
+  background: var(--mantoo-accent-100);
+  color: var(--mantoo-accent-700);
+  border-color: var(--mantoo-border);
+}
+.ctaSecondary:hover { background: var(--mantoo-accent-200); }
+.ctaSecondary:active { background: var(--mantoo-accent-300); transform: translateY(1px); }
+
+/* Footer local del módulo (si lo usas) */
+.footer {
+  grid-row: 3;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding-block: 1rem;
+  color: var(--mantoo-muted);
+}
