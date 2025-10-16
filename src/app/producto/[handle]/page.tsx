@@ -1,12 +1,14 @@
 import { shopifyFetch, QUERY_PRODUCT_BY_HANDLE } from "@/lib/shopify";
 import type { ProductNodeDetail, ShopifyImage, ProductVariant, Edge } from "@/types/shopify";
 
-type Props = { params: { handle: string } };
 
-export default async function ProductPage({ params }: Props) {
+
+export default async function ProductPage(props: unknown) {
+  const { params } = props as { params: Promise<{ handle: string }> };
+  const resolvedParams = await params;
   const data = await shopifyFetch<{ product: ProductNodeDetail }>(
     QUERY_PRODUCT_BY_HANDLE,
-    { handle: params.handle }
+    { handle: resolvedParams.handle }
   );
 
   const p = data.product;
