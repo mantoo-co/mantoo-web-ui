@@ -1,5 +1,6 @@
 import { shopifyFetch, QUERY_PRODUCT_BY_HANDLE } from "@/lib/shopify";
 import type { ProductNodeDetail, ShopifyImage, ProductVariant, Edge } from "@/types/shopify";
+import { AddToCartButton } from "../../../components/AddToCartButton";
 
 
 
@@ -18,6 +19,9 @@ export default async function ProductPage(props: unknown) {
     p.images?.edges?.map((e: Edge<ShopifyImage>) => e.node) ?? [];
   const variants: ProductVariant[] =
     p.variants?.edges?.map((e: Edge<ProductVariant>) => e.node) ?? [];
+  
+  const firstAvailable = variants.find(v => v.availableForSale) ?? variants[0];
+
 
   return (
     <main className="container py-5">
@@ -47,7 +51,9 @@ export default async function ProductPage(props: unknown) {
               </span>
             )}
           </div>
-          <button className="btn btn-primary mt-3">Agregar al carrito</button>
+          {firstAvailable && (
+            <AddToCartButton variantId={firstAvailable.id} />
+          )}
         </div>
       </div>
     </main>

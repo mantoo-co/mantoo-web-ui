@@ -15,6 +15,7 @@ export type ProductNode = {
   descriptionHtml?: string | null;
   featuredImage?: ShopifyImage | null;
   priceRange?: { minVariantPrice: Money } | null;
+  variants?: Connection<ProductVariant> | null;
 };
 
 export type ProductEdge = { cursor: string; node: ProductNode };

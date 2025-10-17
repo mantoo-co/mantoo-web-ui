@@ -5,6 +5,8 @@ import "./globals.css";
 import BootstrapClient from "@/components/BootstrapClient";
 import SiteNavbar from "../components/SiteNavbar";
 import SiteFooter from "../components/SiteFooter";
+import { CartProvider } from "@/contexts/CartContext";
+
 
 
 const geistSans = Geist({
@@ -31,11 +33,13 @@ export default function RootLayout({
     <html lang="en" data-bs-theme="light">
       <body className={`${geistSans.variable} ${geistMono.variable} d-flex flex-column min-vh-100`} suppressHydrationWarning>
         <BootstrapClient />
-        <SiteNavbar />
-        <main className="flex-grow-1">
-          {children}
-        </main>
-        <SiteFooter />
+        <CartProvider>
+          <SiteNavbar />
+          <main className="flex-grow-1">
+            {children}
+          </main>
+          <SiteFooter />
+        </CartProvider>
       </body>
     </html>
   );

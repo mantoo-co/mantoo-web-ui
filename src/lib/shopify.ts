@@ -76,6 +76,27 @@ export const QUERY_PRODUCTS = /* GraphQL */ `
   }
 `;
 
+/*
+export const QUERY_PRODUCTS_PAGE =  `
+  query ProductsPage($first: Int!, $after: String) {
+    products(first: $first, after: $after) {
+      pageInfo { hasNextPage }
+      edges {
+        cursor
+        node {
+          id
+          handle
+          title
+          description
+          featuredImage { url altText width height }
+          priceRange { minVariantPrice { amount currencyCode } }
+        }
+      }
+    }
+  }
+`;
+*/
+
 export const QUERY_PRODUCTS_PAGE = /* GraphQL */ `
   query ProductsPage($first: Int!, $after: String) {
     products(first: $first, after: $after) {
@@ -89,6 +110,9 @@ export const QUERY_PRODUCTS_PAGE = /* GraphQL */ `
           description
           featuredImage { url altText width height }
           priceRange { minVariantPrice { amount currencyCode } }
+          variants(first: 1) {
+            edges { node { id availableForSale price { amount currencyCode } } }
+          }
         }
       }
     }

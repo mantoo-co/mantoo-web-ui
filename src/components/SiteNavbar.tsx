@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import CartDropdown from "@/components/CartDropdown";
+
 
 export default function SiteNavbar() {
   return (
@@ -19,6 +21,7 @@ export default function SiteNavbar() {
             <li className="nav-item">
               <Link className="nav-link" href="/conocenos">Conócenos</Link>
             </li>
+            <li className="nav-item ms-lg-3"><CartDropdown /></li>
           </ul>
         </div>
       </div>
