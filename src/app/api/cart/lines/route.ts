@@ -19,8 +19,17 @@ export async function POST(req: NextRequest) {
   try {
     const cartId = await requireCartId();
     const body = (await req.json()) as { lines: AddLineInput[] };
-    const cart = await addLines(cartId, body.lines);
-    return NextResponse.json(cart);
+    try {
+      const cart = await addLines(cartId, body.lines);
+      return NextResponse.json(cart);
+    } catch (e) {
+      if (!/cart.*(not found|does not exist|completed|locked)/i.test(String(e))) throw e;
+      const jar = await cookies();
+      const newCart = await createCart();
+      jar.set(COOKIE_NAME, newCart.id, COOKIE_OPTS);
+      const retried = await addLines(newCart.id, body.lines);
+      return NextResponse.json(retried);
+    }
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Unexpected error";
     return NextResponse.json({ error: message }, { status: 500 });
